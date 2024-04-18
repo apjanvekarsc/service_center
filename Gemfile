@@ -141,7 +141,7 @@ group :production do
    gem 'rails_12factor'
    #gem 'ruby-plsql'
    gem 'activerecord-oracle_enhanced-adapter', '~> 7.0.2'
-   gem 'ruby-oci8', '~> 2.2', '>= 2.2.12'
+   #gem 'ruby-oci8', '~> 2.2', '>= 2.2.12'
 
 end
 
