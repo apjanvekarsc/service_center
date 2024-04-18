@@ -1,0 +1,2 @@
+# cat packaging/crons/incoming_file
+0 * * * * service-center run rake job:create_incoming_file 1>&2 >> /var/log/service-center/incoming_file.log

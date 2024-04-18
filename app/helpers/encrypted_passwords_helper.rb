@@ -1,0 +1,2 @@
+module EncryptedPasswordsHelper
+end

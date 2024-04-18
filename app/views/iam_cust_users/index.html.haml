@@ -1,0 +1,57 @@
+%br
+= link_to "New IAM Customer User", new_iam_cust_user_path
+%br
+%br
+%h1 Listing IAM Customer Users
+= render :partial => 'advanced_search'
+%br
+= "Total Count: #{@iam_cust_users.count}"
+/= will_paginate @iam_cust_users, :page_links => true
+%br
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Send Password Via
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Username
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      First Name
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Last Name
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Email
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Secondary Email
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Mobile Number
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Secondary Mobile Number
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Was User Added To LDAP?
+  .tbody
+    - @iam_cust_users.each do |record|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', record
+        %td{:style=>'text-align:left;'}
+          = link_to 'Edit', edit_iam_cust_user_path(record) if record.approval_status == "A"
+        %td{:style=>'text-align:left;'}
+          = record.try(:send_password_via).try(:upcase)
+        %td{:style=>'text-align:left;'}
+          = record.username
+        %td{:style=>'text-align:left;'}
+          = record.first_name
+        %td{:style=>'text-align:left;'}
+          = record.last_name
+        %td{:style=>'text-align:left;'}
+          = record.email
+        %td{:style=>'text-align:left;'}
+          = record.secondary_email
+        %td{:style=>'text-align:left;'}
+          = record.mobile_no
+        %td{:style=>'text-align:left;'}
+          = record.secondary_mobile_no
+        %td{:style=>'text-align:left;'}
+          = record.was_user_added == "Y" ? "Yes" : "No"

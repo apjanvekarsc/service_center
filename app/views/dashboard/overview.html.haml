@@ -1,0 +1,180 @@
+%br
+
+= render partial: 'panel', locals: { group: 'inw', sc_service: 'AML' }
+= #render partial: 'panel', locals: { group: 'ft', sc_service: 'FUNDSTRANSFER' }
+/= render partial: 'panel', locals: { group: 'sc', sc_service: 'SERVICECENTERBACKEND' }
+= #render partial: 'panel', locals: { group: 'ecol', sc_service: 'ECOL' }
+/= #render partial: 'panel', locals: { group: 'obdx' }
+= #render partial: 'panel', locals: { group: 'sm' }
+= #render partial: 'panel', locals: { group: 'datapurge'}
+= #render partial: 'panel', locals: { group: 'ns' }
+/= render partial: 'panel', locals: { group: 'rp'}
+= #render partial: 'panel', locals: { group: 'rr'}
+= #render partial: 'panel', locals: { group: 'icol' }
+
+
+
+
+
+
+- if @current_user.group_names.include?("iam")
+  %h1 Identity & Access Management
+  .slide-container
+    .box
+      = link_to '/unapproved_records?group_name=iam' do
+        = image_tag 'work-list.jpg', :size => "80x80"
+      %br
+        = "Approval Worklist"
+  .slide-container
+    .box
+      - if !IamAuditRule.first.nil?
+        = link_to edit_iam_audit_rule_path(IamAuditRule.first) do
+          = image_tag 'ecol_rule.png', :size => "80x80"
+        %br
+          = "IAM Audit Rule"
+      - else
+        = link_to iam_audit_rule_error_msg_path do
+          = image_tag 'ecol_rule.png', :size => "80x80"
+        %br
+          = "IAM Audit Rule"
+    .box
+      = link_to '/iam_cust_users' do
+        = image_tag 'iam_cust_user_icon.png', :size => "80x80"
+      %br
+        = "IAM Customer User"
+    .box
+      = link_to 'iam_cust_users/ldap_user_list' do
+        = image_tag 'iam_users_list.png', :size => "80x80"
+      %br
+        = "LDAP Users"    
+
+%br
+  %h1 Salary Upload
+  .slide-container
+    .box
+      = link_to incoming_files_path(:sc_service => "SALARY") do
+        = image_tag 'upload.png', :size => "80x80"
+      %br
+        = "File Uploads"
+    .box
+      = link_to '/su_unapproved_records' do
+        = image_tag 'work-list.jpg', :size => "80x80"
+      %br
+        = "Approval Worklist"
+  .slide-container
+    .box
+      = link_to '/su_customers' do
+        = image_tag 'su_customers_icon.png', :size => "80x80"
+      %br
+        = "Salary Upload Customers"
+
+  %h1 Recurring Transfer
+  .slide-container
+    .box
+      = link_to '/rc_transfer_unapproved_records' do
+        = image_tag 'work-list.jpg', :size => "80x80"
+      %br
+        = "Approval Worklist"
+  .slide-container
+    .box
+      = link_to '/rc_apps' do
+        = image_tag 'rc_apps_icon.png', :size => "80x80"
+      %br
+        = "Recurring Transfer Apps"
+    .box
+      = link_to '/rc_transfer_schedules' do
+        = image_tag 'rc_transfer_schedule.png', :size => "80x80"
+      %br
+        = "Recurring Transfer Schedule"
+    .box
+      = link_to '/rc_transfers' do
+        = image_tag 'rc_transfer.png', :size => "80x80"
+      %br
+        = "Recurring Transfers"
+
+  %h1 Reconciled Returns
+  .slide-container
+    .box
+      = link_to incoming_files_path(:sc_service => "RR") do
+        = image_tag 'upload.png', :size => "80x80"
+      %br
+        = "File Uploads"
+    .box
+      = link_to '/rr_unapproved_records' do
+        = image_tag 'work-list.jpg', :size => "80x80"
+      %br
+        = "Approval Worklist"
+  .slide-container
+    .box
+      = link_to '/reconciled_returns' do
+        = image_tag 'reconciled_returns.png', :size => "80x80"
+      %br
+        = "Reconciled Returns"
+  %h1 Prepaid Card
+  .slide-container
+    .box
+      = link_to incoming_files_path(:sc_service => "PPC") do
+        = image_tag 'upload.png', :size => "80x80"
+      %br
+        = "File Uploads"
+    .box
+      = link_to '/pc_unapproved_records' do
+        = image_tag 'work-list.jpg', :size => "80x80"
+      %br
+        = "Approval Worklist"
+  .slide-container
+    .box
+      = link_to '/pc_programs' do
+        = image_tag 'pc_programs.gif', :size => "80x80"
+      %br
+        = "PC Programs"
+    .box
+      = link_to '/pc_products' do
+        = image_tag 'prepaid-card-products.png', :size => "80x80"
+      %br
+        = "PC Products"
+    .box
+      = link_to '/pc_apps' do
+        = image_tag 'pc_apps.png', :size => "80x80"
+      %br
+        = "PC Apps"
+    .box
+      = link_to '/pc_fee_rules' do
+        = image_tag 'pc_fee_rules.png', :size => "80x80"
+      %br
+        = "PC Fee Rules"
+  %h1 Reports
+  .slide-container
+    .box
+      = link_to "/rp/settings" do
+        = image_tag 'settings_icon.png', :size => "80x80"
+      %br
+        = "Setting"
+    .box
+      = link_to '/rp/available_reports?group=rp' do
+        = image_tag 'available_report.png', :size => "80x80"
+      %br
+        = "Available Reports"
+    .box
+      = link_to '/rp/reports' do
+        = image_tag 'reports_icon.png', :size => "80x80"
+      %br
+        = "Generated Reports"
+
+  %h1 Reports - AML
+  .slide-container
+    .box
+      = link_to "/rp/settings" do
+        = image_tag 'settings_icon.png', :size => "80x80"
+      %br
+        = "Setting"
+    .box
+      = link_to '/rp/available_reports?group=rpv1' do
+        = image_tag 'available_report.png', :size => "80x80"
+      %br
+        = "Available Reports"
+    .box
+      = link_to '/rp/reports' do
+        = image_tag 'reports_icon.png', :size => "80x80"
+      %br
+        = "Generated Reports"

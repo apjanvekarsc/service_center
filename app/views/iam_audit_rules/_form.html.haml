@@ -1,0 +1,33 @@
+= simple_form_for @iam_audit_rule, :html => {:class=>'form-horizontal', :autocomplete=>"off", :id => "iam_audit_rule"} do |f|
+  .control-group
+    = f.label ' '
+    #msg-error
+      = error_message_for(@iam_audit_rule, :base, :prepend_text => "")
+  .form-main{:style => 'width:100%'}
+    = f.hidden_field :lock_version
+    .control-group
+      = f.label :iam_organisation_id, 'IAM Organisation', :class => 'control-label'
+      = f.select(:iam_organisation_id, IamOrganisation.all.map { |key, value| [key.name, key.id] }, include_blank: 'Select')
+      #msg-error
+        = error_message_for(@iam_audit_rule, :iam_organisation_id, :prepend_text => "")
+    .control-group
+      = f.label :log_bad_org_uuid, 'Log Bad Organisation UUID', :class => 'control-label'
+      = f.check_box :log_bad_org_uuid, {},"Y","N"
+      #msg-error
+        = error_message_for(@iam_audit_rule, :log_bad_org_uuid, :prepend_text => "")
+    .control-group
+      = f.label :enabled_at, "*Last Enabled At", :class => 'control-label'
+      = f.text_field :enabled_at
+      #msg-error
+        = error_message_for(@iam_audit_rule, :enabled_at, :prepend_text => "")
+    .control-group
+      = f.label :interval_in_mins, "*Enabled For (in mins)", :class => 'control-label'
+      = f.number_field :interval_in_mins, min: 1
+      #msg-error
+        = error_message_for(@iam_audit_rule, :interval_in_mins, :prepend_text => "")
+
+  .form-actions
+    - (f.object.new_record? and f.object.org_uuid.nil?) ? label_name = "Create" : label_name = "Update"
+    = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_rule', :value => label_name + ' IAM Audit Rules'
+    = link_to :Cancel,root_path, :name => 'cancel', :class=>"cancel btn"
+

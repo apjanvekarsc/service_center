@@ -1,0 +1,166 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8; margin: 1%;'}
+    #form-details
+      %h3 IAM Customer User Details 
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @iam_cust_user
+        - if @iam_cust_user.approval_status == "A"
+          %a.btn{:href => "#{!(can) ? '#' : '/iam_cust_users/' + @iam_cust_user.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'unapproved_records/approve', :@record => @iam_cust_user
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%"}
+        - if !@iam_cust_user.nil?
+          %tr
+            %td.label Version
+            %td.value
+              = link_to "#{audit_count(@iam_cust_user)}", :controller => :iam_cust_users, :action => :audit_logs, :version_id => audit_count(@iam_cust_user), :id => @iam_cust_user.id
+          %tr
+            %td.label Send Password Via
+            %td.value
+              = @iam_cust_user.try(:send_password_via).try(:upcase)
+          %tr
+            %td.label Errors
+            %td.value
+              = @ldap_error
+          %tr
+            %td.label Enabled?
+            %td
+              = @iam_cust_user.is_enabled
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :is_enabled, :prepend_text => "")
+          %tr
+            %td.label Username
+            %td.value
+              = @iam_cust_user.username
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :username, :prepend_text => "")
+          %tr
+            %td.label First Name
+            %td
+              = @iam_cust_user.first_name
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :first_name, :prepend_text => "")
+          %tr
+            %td.label Last Name
+            %td.value
+              = @iam_cust_user.last_name
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :last_name, :prepend_text => "")
+          %tr
+            %td.label Email ID
+            %td
+              = @iam_cust_user.email
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :email, :prepend_text => "")
+          %tr
+            %td.label Mobile Number
+            %td
+              = @iam_cust_user.mobile_no
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :mobile_no, :prepend_text => "")
+          %tr
+            %td.label Secondary Email
+            %td
+              = @iam_cust_user.secondary_email
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :secondary_email, :prepend_text => "")
+          %tr
+            %td.label Secondary Mobile Number
+            %td
+              = @iam_cust_user.secondary_mobile_no
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :secondary_mobile_no, :prepend_text => "")
+
+          %tr
+            %td.label Was User Added To LDAP?
+            %td
+              = @iam_cust_user.was_user_added == "Y" ? "Yes" : "No"
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :was_user_added, :prepend_text => "")
+
+          %tr
+            %td.label Reset Password
+            %td
+              = @iam_cust_user.should_reset_password
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :should_reset_password, :prepend_text => "")
+          %tr
+            %td.label Last Password Reset At
+            %td
+              = @iam_cust_user.last_password_reset_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :last_password_reset_at, :prepend_text => "")
+          %tr
+            %td.label Notification Sent At
+            %td
+              = @iam_cust_user.notification_sent_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :notification_sent_at, :prepend_text => "")
+          %tr
+            %td.label Created By
+            %td.value
+              = @iam_cust_user.created_user.try(:username)
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :created_by, :prepend_text => "")
+          %tr
+            %td.label Updated By
+            %td.value
+              = @iam_cust_user.updated_user.try(:username)
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :updated_by, :prepend_text => "")
+          %tr
+            %td.label Created At
+            %td.value
+              = @iam_cust_user.created_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :created_at, :prepend_text => "")
+          %tr
+            %td.label Updated At
+            %td.value
+              = @iam_cust_user.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td#msg-error
+              = error_message_for(@iam_cust_user, :updated_at, :prepend_text => "")
+
+    %p{:style => 'text-align:left; padding-left:6px; padding-bottom:30px'}
+      - can = can? :try_login, @record
+      - flag = @record.enable_resend_button?
+      - was_added = (@record.was_user_added == nil || @record.was_user_added == "N")
+
+      = link_to 'Test Login', try_login_iam_cust_user_path(@iam_cust_user), {remote: true, method: :put, 'data-toggle' =>  "modal", 'data-target' => "#{!(can && flag && !was_added) ? '#' : '#modal-window'}", class: "btn btn-primary #{(can && flag && !was_added) ? '' : 'disabled'}", id: 'test_login_btn'}
+
+      - can = can? :resend_password, @record
+      = link_to 'Resend Password', "#", {'data-toggle' =>  "modal", 'data-target' => "#{!(can && flag && !was_added) ? '#' : '#resendPassword'}", class: "btn btn-primary #{(can && flag && !was_added) ? '' : 'disabled'}"}
+
+      - can = can? :add_user, @record
+      = link_to 'Add LDAP Entry', "#", {'data-toggle' =>  "modal", 'data-target' => "#{!(can && flag) ? '#' : '#addUser'}", class: "btn btn-primary #{(can && flag && was_added) ? '' : 'disabled'}"}
+
+      - can = can? :delete_user, @record
+      - if @iam_cust_user.was_user_added == 'Y'
+        = link_to 'Delete LDAP Entry', "#", {'data-toggle' =>  "modal", 'data-target' => "#{!(can && flag && !was_added) ? '#' : '#deleteUser'}", class: "btn btn-primary #{(can && flag && !was_added) ? '' : 'disabled'}"}
+
+      %div{ id:"modal-window", class:"modal hide fade", role: "dialog", 'aria-labelledby' => "myModalLabel", 'aria-hidden' => "true"}
+
+#resendPassword.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Acknowledge
+  .modal-body{:style => "max-height:450px;"}
+    Are you sure ?
+    &nbsp
+    = link_to 'Send', resend_password_iam_cust_user_path(@iam_cust_user), {remote: true, method: :put, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary', id: 'resend'}
+#addUser.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Acknowledge
+  .modal-body{:style => "max-height:450px;"}
+    Are you sure ?
+    &nbsp
+    = link_to 'Add', add_user_iam_cust_user_path(@iam_cust_user), {remote: true, method: :put, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary', id: 'add'}
+#deleteUser.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Acknowledge
+  .modal-body{:style => "max-height:450px;"}
+    Are you sure ?
+    &nbsp
+    = link_to 'Delete', delete_user_iam_cust_user_path(@iam_cust_user), {remote: true, method: :put, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary', id: 'delete'}

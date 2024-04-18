@@ -1,0 +1,65 @@
+%br
+= link_to 'New Salary Upload Customer', new_su_customer_path
+%br
+%br
+%h1 Listing Salary Upload Customers
+%h2.collapsible
+  Advanced Search
+  %span.caret
+.collapsible-content
+  = render :partial => 'advanced_search'
+%br
+= "Total Count: #{@su_customers_count}"
+%br
+= will_paginate @su_customers, :page_links => true
+%br
+
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Account No
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Customer ID
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Customer Name
+    %th{:style=>'text-align:left; background-color: lightblue;'} 
+      Pool Account No
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Pool Customer ID
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Max Distance For Name %
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Operations Email
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Relationship Manager Email
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Is Enabled?
+
+  .tbody
+    - @su_customers.each do |su_customer|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', su_customer
+        %td{:style=>'text-align:left;'}
+          = link_to 'Edit', edit_su_customer_path(su_customer)
+        %td{:style=>'text-align:left;'}
+          = su_customer.account_no
+        %td{:style=>'text-align:left;'}
+          = su_customer.customer_id
+        %td{:style=>'text-align:left;'}
+          = su_customer.customer_name
+        %td{:style=>'text-align:left;'}
+          = su_customer.pool_account_no
+        %td{:style=>'text-align:left;'}
+          = su_customer.pool_customer_id
+        %td{:style=>'text-align:left;'}
+          = su_customer.max_distance_for_name
+        %td{:style=>'text-align:left;'}
+          = su_customer.ops_email.split(';').first rescue nil
+        %td{:style=>'text-align:left;'}
+          = su_customer.rm_email.split(';').first rescue nil
+        %td{:style=>'text-align:left;'}
+          = su_customer.is_enabled
+

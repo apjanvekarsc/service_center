@@ -1,0 +1,31 @@
+- @title = index_model.model_name.human.pluralize
+- if @title == "Rpl remittances"
+  - @title = "Blockchain Remittance"
+- elsif @title == "Remit transactions"
+  - @title = "Blockchain Remittance"
+
+%h1=@title
+%br
+= render "#{index_model.model_name.to_s.pluralize.underscore}/advanced_search"
+%br
+
+- columns = index_columns
+- columns.delete(:customer_id) if current_user.present? && current_user.try(:accessible_customers).try(:count) == 1
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    #panels.panel.panel-primary
+      .panel-body 
+        %table.table#transactions_table
+          %thead
+            %tr
+              - columns.each do |column|
+                - col_name = index_model.human_attribute_name(column)
+                - if col_name == "Ripple status"
+                  - col_name = "Remit Status"
+                %th= col_name
+              %th
+          %tbody
+            - records.each do |transfer|
+              %tr
+                - columns.each_with_index do |column, i|
+                  %td= transfer.send(column.to_s)

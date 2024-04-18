@@ -1,0 +1,31 @@
+- unless record.nil?
+  .show_ticket
+    - colors = ["#F1F2F8", "#ecf5fa"]
+    - panel.each_with_index do |r, i|
+      - h = nil
+      - w = 100/r.size rescue 0
+      - r.each do |c|
+        - h = h || c[:height]
+        - if i == 0
+          .header-form-main{style: "background-color: #{colors[i%2]}; width: #{w}%; height: #{h}; display: inline-block;"}
+            - c[:fields].each do |a|
+              %h3
+                = record.class.human_attribute_name(a)
+                = record.try(a)
+        - else
+          .header-form-main{:style=>"background-color: #{colors[i%2]}; width: #{w}%; height: #{h}; display: inline-block;"}
+            #ticket-details
+              %h3
+                = c[:title]
+              %table.table.no-border{:style=>"table-layout: fixed; width: 100%"}
+                - c[:fields].each do |a|
+                  %tr
+                    %td.label
+                      = record.class.human_attribute_name(a)
+                    %td.value
+                      = record.try(a)
+      - if i == 0 and toolbar.present?
+        .toolbar
+          - toolbar[:buttons].each do |t|
+            = record.try(t)
+

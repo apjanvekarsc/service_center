@@ -1,0 +1,25 @@
+- btn_class = case object.status_code; when :COMPLETED, :Y, :S; 'btn-success'; when :FAILED, :RETURNED_FROM_BENEFICIARY, :F; 'btn-danger'; when nil , "";  else 'btn-info'; end
+%button.btn.btn-xs{"data-target": "##{id}", "data-toggle": "modal", type: "button", class: btn_class} #{object.status_code || "NA"}
+- if [:FAILED, :RETURNED_FROM_BENEFICIARY, :F].include?(object.status_code)
+  .modal.hide.fade{role: "dialog", id: "#{id}"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"data-dismiss": "modal", type: "button"} ×
+          %h4.modal-title #{object.status_code}
+        .modal-body
+          %table.table.no-border
+            %tr
+              %td.label Fault Code:
+              %td
+                #{object.fault_code}
+            %tr
+              %td.label Fault Reason:
+              %td
+                #{object.fault_reason}
+            %tr
+              %td.label Fault Subcode:
+              %td
+                #{object.fault_subcode}
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss": "modal", type: "button"} Close

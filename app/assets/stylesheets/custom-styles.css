@@ -1,0 +1,11 @@
+#raw_file_content {
+    white-space: pre;
+    word-wrap: break-word;
+    border: 1px solid beige;
+    padding: 5px 10px 5px 10px;
+    margin: 5px 10px 5px 5px;
+    height: auto;
+    max-height: 420px;
+    overflow: auto;
+    width: 96%;
+}

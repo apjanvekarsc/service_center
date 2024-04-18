@@ -1,0 +1,16 @@
+.bundle/
+log/*.log
+pkg/
+spec/dummy/db/*.sqlite3
+spec/dummy/db/*.sqlite3-journal
+spec/dummy/log/*.log
+spec/dummy/tmp/
+spec/dummy/.sass-cache
+vendor
+/tmp
+/node_modules
+/public/assets
+/db/migrate
+/db/migrate111
+.yarn/
+.git123

@@ -1,0 +1,16 @@
+- ops = build_operations_menu(params[:group])
+%br
+%br
+%br
+.header-form-main{:style=>'width: 15%; height: 500px; display: inline-block;'}
+  = image_tag 'operations.png', :size => "150x150"
+.header-form-main{:style=>'width: 50%;'}
+  %table.table.no-border{:style=>"table-layout: fixed; width: 100%; font-size: 700px;"}
+    %br
+    %span.h1{:style => "font-size:20px;"} Operations
+    %br
+    %br
+    - ops.each do |i|
+      %tr
+        %td
+          = link_to i[:name], i[:link_to], {:style => "font-size:15px;"}

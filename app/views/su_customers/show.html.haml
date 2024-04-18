@@ -1,0 +1,99 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8; height: 900px;'}
+    #form-details
+      %h3 Salary Uplaod Customer Details 
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @su_customer
+        %a.btn{:href => "#{!(can) ? '#' : '/su_customers/' + @su_customer.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'approve', :@record => @su_customer
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+        - if !@su_customer.nil?
+          %tr
+            %td.label Version
+            %td.value
+              = link_to "#{audit_count(@su_customer)}", :controller => :su_customers, :action => :audit_logs, :version_id => audit_count(@su_customer), :id => @su_customer.id
+          %tr
+            %td.label Form Errors
+            %td.value
+              = ' '
+            %td#msg-error
+              = error_message_for(@su_customer, :base, :prepend_text => "")
+          %tr
+            %td.label Account No
+            %td.value
+              = @su_customer.account_no
+            %td#msg-error
+              = error_message_for(@su_customer, :account_no, :prepend_text => "")    
+          %tr
+            %td.label Customer ID
+            %td.value
+              = @su_customer.customer_id
+            %td#msg-error
+              = error_message_for(@su_customer, :customer_id, :prepend_text => "")
+          %tr
+            %td.label Customer Name
+            %td.value
+              = @su_customer.customer_name
+            %td#msg-error
+              = error_message_for(@su_customer, :customer_name, :prepend_text => "")
+          %tr
+            %td.label Pool Account No
+            %td.value
+              = @su_customer.pool_account_no
+            %td#msg-error
+              = error_message_for(@su_customer, :pool_account_no, :prepend_text => "")
+          %tr
+            %td.label Pool Customer ID
+            %td.value
+              = @su_customer.pool_customer_id
+            %td#msg-error
+              = error_message_for(@su_customer, :pool_customer_id, :prepend_text => "")
+          %tr
+            %td.label Max Distance For Name %
+            %td.value
+              = @su_customer.max_distance_for_name.nil? ? "-" : "#{@su_customer.max_distance_for_name} %"
+            %td#msg-error
+              = error_message_for(@su_customer, :max_distance_for_name, :prepend_text => "")
+          %tr
+            %td.label Operations Email
+            %td.value
+              = @su_customer.ops_email
+            %td#msg-error
+              = error_message_for(@su_customer, :ops_email, :prepend_text => "")
+          %tr
+            %td.label Relationship Manager Email
+            %td.value
+              = @su_customer.rm_email
+            %td#msg-error
+              = error_message_for(@su_customer, :rm_email, :prepend_text => "")
+          %tr
+            %td.label Is Enabled?
+            %td.value
+              = @su_customer.is_enabled
+            %td#msg-error
+              = error_message_for(@su_customer, :is_enabled, :prepend_text => "")
+          %tr
+            %td.label Created By
+            %td.value
+              = @su_customer.created_user.try(:username)
+            %td#msg-error
+              = error_message_for(@su_customer, :created_by, :prepend_text => "")
+          %tr
+            %td.label Updated By
+            %td.value
+              = @su_customer.updated_user.try(:username)
+            %td#msg-error
+              = error_message_for(@su_customer, :updated_by, :prepend_text => "")
+          %tr
+            %td.label Created At
+            %td.value
+              = @su_customer.created_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td#msg-error
+              = error_message_for(@su_customer, :created_at, :prepend_text => "")
+          %tr
+            %td.label Updated At
+            %td.value
+              = @su_customer.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td#msg-error
+              = error_message_for(@su_customer, :updated_at, :prepend_text => "")

@@ -1,0 +1,154 @@
+= simple_form_for @iam_cust_user, :html => {:class=>'form-horizontal', :autocomplete=>"off", :id => "iam_cust_user_form"} do |f|
+  .control-group
+    = f.label ' '
+    #msg-error
+      = error_message_for(@iam_cust_user, :base, :prepend_text => "")
+  .form-main
+    = f.hidden_field :lock_version
+    = f.hidden_field :approved_id
+    = f.hidden_field :approved_version
+    = hidden_field_tag "send_password_via2", @iam_cust_user.send_password_via
+    .control-group
+      = f.label :send_password_via, "*Send Password Via", :class => 'control-label'
+      = f.radio_button :send_password_via, "sms",:checked => true
+      SMS
+      = f.radio_button :send_password_via, "email"
+      Email
+      = f.radio_button :send_password_via, "both"
+      Both
+    .control-group
+      = f.label :username, "*Username", :class => 'control-label'
+      = f.text_field :username, maxlength: 100
+      #msg-error
+        = error_message_for(@iam_cust_user, :username, :prepend_text => "")
+    .control-group
+      = f.label :first_name, "*First Name", :class => 'control-label'
+      = f.text_field :first_name, maxlength: 100
+      #msg-error
+        = error_message_for(@iam_cust_user, :first_name, :prepend_text => "")
+    .control-group
+      = f.label :last_name, "Last Name", :class => 'control-label'
+      = f.text_field :last_name, maxlength: 100
+      #msg-error
+        = error_message_for(@iam_cust_user, :last_name, :prepend_text => "")
+    .control-group
+      = f.label :email, "*Email", :class => 'control-label'
+      = f.text_field :email, maxlength: 100
+      #msg-error
+        = error_message_for(@iam_cust_user, :email, :prepend_text => "")
+    .control-group
+      = f.label :secondary_email, "*Secondary Email", :class => 'control-label'
+      = f.text_field :secondary_email, maxlength: 100
+      #msg-error
+        = error_message_for(@iam_cust_user, :secondary_email, :prepend_text => "")
+    .control-group
+      = f.label :mobile_no, "*Mobile Number", :class => 'control-label'
+      = f.text_field :mobile_no, maxlength: 20
+      #msg-error
+        = error_message_for(@iam_cust_user, :mobile_no, :prepend_text => "")
+    .control-group
+      = f.label :secondary_mobile_no, "*Secondary Mobile Number", :class => 'control-label'
+      = f.text_field :secondary_mobile_no, maxlength: 20
+      #msg-error
+        = error_message_for(@iam_cust_user, :secondary_mobile_no, :prepend_text => "")
+    - unless action_name == 'new'
+      - if @iam_cust_user.was_user_added == "Y"
+        .control-group
+          = f.label :should_reset_password, "Reset Password?", :class => 'control-label'
+          = f.check_box :should_reset_password, {},"Y","N"
+      .control-group
+        = f.label :is_enabled, "Enabled?", :class => 'control-label'
+        = f.check_box :is_enabled, {},"Y","N"
+
+  .form-actions
+    - (f.object.new_record? and f.object.username.nil?) ? label_name = "Create" : label_name = "Update"
+    = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_iam_cust_user', :value => label_name + ' Customer User'
+    = link_to :Cancel,'/iam_cust_users', :name => 'cancel', :class=>"cancel btn"
+
+:javascript
+  $(document).ready(function(){
+    var primary_email =  $("#iam_cust_user_email").val(); 
+    var secondary_email =  $("#iam_cust_user_secondary_email").val();
+    var primary_mobile_no =  $("#iam_cust_user_mobile_no").val();
+    var secondary_mobile_no =  $("#iam_cust_user_secondary_mobile_no").val();
+
+    if($("#iam_cust_user_send_password_via_sms").is(':checked')){
+      $("#iam_cust_user_email").val("")
+      $("#iam_cust_user_secondary_email").val("")
+
+      $("#iam_cust_user_mobile_no").prop('disabled', false);
+      $("#iam_cust_user_secondary_mobile_no").prop('disabled', false);
+
+      $("#iam_cust_user_email").prop('disabled', true);
+      $("#iam_cust_user_secondary_email").prop('disabled', true);
+    }
+    if($("#iam_cust_user_send_password_via_email").is(':checked')){
+      $("#iam_cust_user_mobile_no").val("")
+      $("#iam_cust_user_secondary_mobile_no").val("")
+
+      $("#iam_cust_user_mobile_no").prop('disabled', true);
+      $("#iam_cust_user_secondary_mobile_no").prop('disabled', true);
+      $("#iam_cust_user_email").prop('disabled', false);
+      $("#iam_cust_user_secondary_email").prop('disabled', false);
+    }
+    if($("#iam_cust_user_send_password_via_both").is(':checked')){
+      $("#iam_cust_user_secondary_email").val("")
+      $("#iam_cust_user_secondary_mobile_no").val("")
+
+      $("#iam_cust_user_secondary_email").prop('disabled', true);
+      $("#iam_cust_user_secondary_mobile_no").prop('disabled', true);
+      $("#iam_cust_user_email").prop('disabled', false);
+      $("#iam_cust_user_mobile_no").prop('disabled', false);
+    }
+    $('input[type="radio"]').on('change', function(e) {
+      if($(this).val() == "sms"){
+        $("#iam_cust_user_email").val("")
+        $("#iam_cust_user_secondary_email").val("")
+        $("#iam_cust_user_mobile_no").val("")
+        $("#iam_cust_user_secondary_mobile_no").val("")
+
+        if($("#send_password_via2").val() == "sms"){
+          $("#iam_cust_user_mobile_no").val(primary_mobile_no)
+          $("#iam_cust_user_secondary_mobile_no").val(secondary_mobile_no)
+        }
+
+        $("#iam_cust_user_mobile_no").prop('disabled', false);
+        $("#iam_cust_user_secondary_mobile_no").prop('disabled', false);
+        $("#iam_cust_user_email").prop('disabled', true);
+        $("#iam_cust_user_secondary_email").prop('disabled', true);
+      }
+      if($(this).val() == "email"){
+        $("#iam_cust_user_mobile_no").val("")
+        $("#iam_cust_user_secondary_mobile_no").val("")
+        $("#iam_cust_user_email").val("")
+        $("#iam_cust_user_secondary_email").val("")
+
+        if($("#send_password_via2").val() == "email"){
+          $("#iam_cust_user_email").val(primary_email)
+          $("#iam_cust_user_secondary_email").val(secondary_email)
+        }
+
+        $("#iam_cust_user_mobile_no").prop('disabled', true);
+        $("#iam_cust_user_secondary_mobile_no").prop('disabled', true);
+        $("#iam_cust_user_email").prop('disabled', false);
+        $("#iam_cust_user_secondary_email").prop('disabled', false);
+      }
+      if($(this).val() == "both"){
+        $("#iam_cust_user_mobile_no").val("")
+        $("#iam_cust_user_secondary_mobile_no").val("")
+        $("#iam_cust_user_email").val("")
+        $("#iam_cust_user_secondary_email").val("")
+
+        if($("#send_password_via2").val() == "both"){
+          $("#iam_cust_user_email").val(primary_email)
+          $("#iam_cust_user_mobile_no").val(primary_mobile_no)
+        }
+
+        $("#iam_cust_user_mobile_no").prop('disabled', false);
+        $("#iam_cust_user_secondary_mobile_no").prop('disabled', true);
+        $("#iam_cust_user_email").prop('disabled', false);
+        $("#iam_cust_user_secondary_email").prop('disabled', true);
+      }
+    });
+    
+  });

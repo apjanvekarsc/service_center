@@ -1,0 +1,17 @@
+%br
+%h3 Modules and Versions
+%br
+%table.table.datatable
+  - @list.each_with_index do |l, i|
+    %tbody
+      %tr
+        %td
+          = i + 1
+        %td
+          = l.name
+        %td
+          = l.version
+%hr
+%center 
+  =@rpm_version
+          

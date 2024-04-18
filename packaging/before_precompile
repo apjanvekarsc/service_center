@@ -1,0 +1,25 @@
+#!/bin/bash -e
+
+cp config/database.1.yml config/database.yml
+
+mkdir -p log
+touch log/production.log
+
+echo "Installing Oracle InstantClient Basic/SDK/SQLPlus..."
+mkdir -p /tmp/oracle
+cd /tmp/oracle
+
+wget -O "instantclient-sdk-linux.x64-21.12.0.0.0dbru.zip" "https://download.oracle.com/otn_software/linux/instantclient/2112000/instantclient-sdk-linux.x64-21.12.0.0.0dbru.zip"
+unzip "instantclient-sdk-linux.x64-21.12.0.0.0dbru.zip"
+
+wget -O "instantclient-basic-linux.x64-21.12.0.0.0dbru.zip" "https://download.oracle.com/otn_software/linux/instantclient/2112000/instantclient-basic-linux.x64-21.12.0.0.0dbru.zip"
+unzip "instantclient-basic-linux.x64-21.12.0.0.0dbru.zip"
+
+wget -O "instantclient-sqlplus-linux.x64-21.12.0.0.0dbru.zip" "https://download.oracle.com/otn_software/linux/instantclient/2112000/instantclient-sqlplus-linux.x64-21.12.0.0.0dbru.zip"
+unzip "instantclient-sqlplus-linux.x64-21.12.0.0.0dbru.zip"
+
+
+#sh -c "echo /tmp/oracle/instantclient_21_12/etc/ld.so.conf.d/oracle-instantclient.conf" 
+
+#cd instantclient_21_12
+#ln -s libclntsh.so libclntsh.so.21.1

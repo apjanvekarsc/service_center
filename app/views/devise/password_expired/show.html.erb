@@ -1,0 +1,18 @@
+<% @public_key = encrypted_field_public_key if @public_key.nil? %>
+<h2>Renew your password</h2>
+
+<%= form_for(resource, :as => resource_name, :url => [resource_name, :password_expired], :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+  <%= hidden_field_tag(:public_key, @public_key) %>
+
+  <p><%= f.label :current_password, "Current password" %><br />
+  <%= f.password_field :current_password, data: { encrypt: true } %></p>
+
+  <p><%= f.label :password, "New password" %><br />
+  <%= f.password_field :password, data: { encrypt: true } %></p>
+
+  <p><%= f.label :password_confirmation, "Confirm new password" %><br />
+  <%= f.password_field :password_confirmation, data: { encrypt: true } %></p>
+
+  <p><%= f.submit "Change my password" %></p>
+<% end %>

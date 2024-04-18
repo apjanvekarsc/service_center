@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Service Center</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "123","data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "application","data-turbolinks-track" => true  %>
+
+    <%= csrf_meta_tags %>
+    <%#= javascript_include_tag "application" %>
+    <%#= javascript_importmap_tags %>
+  </head>
+  <body id="generic-app">
+    <div class="header" style="z-index: 9">
+      <%= render :partial => 'layouts/header' %>
+    </div>
+    <div class="content">
+      <% if notice %>
+        <p class="notice">
+          <% if notice.is_a?(Array) %>
+            <% notice.each do |notice| %>
+              <%= notice %>
+              <br/>
+            <% end %>
+          <% else %>
+            <%= notice %>
+          <% end %>
+        </p>
+      <% end %>
+      <% if alert %>
+        <p class="alert">
+          <%= alert %>
+        </p>
+      <% end %>
+      <%= yield %>
+    </div>
+    <div class="footer">
+      <%= render :partial => 'layouts/footer' %>
+    </div>
+  </body>
+</html>

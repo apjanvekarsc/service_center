@@ -1,0 +1,470 @@
+%br
+%h3 Environment Variables
+%br
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Api
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody
+      %tr
+        %td
+          = "CONFIG_URL_AML_SEARCH"
+        %td
+          = @config_env_vars["CONFIG_URL_AML_SEARCH"] || '-'
+        %td
+          = "The API that is invoked for AML Search. The API in for the internal implementation of AML, and not for AMLOCK"
+      %tr
+        %td
+          = "CONFIG_URL_GEN_RESP_FILE_URI"
+        %td
+          = @config_env_vars["CONFIG_URL_GEN_RESP_FILE_URI"] || '-'
+        %td
+          = "The API that is invoked when the 'Generate Response File' is triggered from any File Processing Page"
+      %tr
+        %td
+          = "CONFIG_URL_IIB_FILE_MGR"
+        %td
+          = @config_env_vars["CONFIG_URL_IIB_FILE_MGR"] || '-'
+        %td
+          = "The API that is invoked on Skip/Approve from File Upload"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Authentication
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody          
+      %tr
+        %td
+          = "CONFIG_DEVISE_PASSWORD_EXPIRY_DAYS"
+        %td
+          = @config_env_vars["CONFIG_DEVISE_PASSWORD_EXPIRY_DAYS"] || '-'
+        %td
+          = "The password expiry duration for admin users. Staff uses LDAP and the passpord policy of LDAP is controller via LDAP."
+      %tr
+        %td
+          = "CONFIG_LDAP_URL"
+        %td
+          = "*******"
+        %td
+          = "The LDAP detail, specified as a URI"
+      %tr
+        %td
+          = "DEVISE_AUTHENTICATE_WITH_LDAP"
+        %td
+          = @config_env_vars["DEVISE_AUTHENTICATE_WITH_LDAP"] || '-'
+        %td
+          = "This should be TRUE, this ensures that the application users LDAP for authenticating users"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} BcDatabase
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody          
+      %tr
+        %td
+          = "BCDATABASE_PASS"
+        %td
+          = @config_env_vars["BCDATABASE_PASS"] || '-'
+        %td
+          = "The file that has the encryption key used by bcdatabase"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Database
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody                  
+      %tr
+        %td
+          = "BCDATABASE_PATH"
+        %td
+          = @config_env_vars["BCDATABASE_PATH"] || '-'
+        %td
+          = "The file with encrypted credentials for all databases. The application connects to 'ESB', 'FCR', 'ATOM' database"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Deprecated
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody          
+      %tr
+        %td
+          = "CONFIG_DOWNLOAD_PATH"
+        %td
+          = @config_env_vars["CONFIG_DOWNLOAD_PATH"] || '-'
+        %td
+          = "The path where CSV exports are kept. CSV exports have been discontinued, and RP reports should be used instead."
+      %tr
+        %td
+          = "CONFIG_URL_BM_AGGR_PAYMENT"
+        %td
+          = @config_env_vars["CONFIG_URL_BM_AGGR_PAYMENT"] || '-'
+        %td
+          = "This is no longer used."
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Email
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody
+      %tr
+        %td
+          = "CONFIG_BROKER_UUID"
+        %td
+          = @config_env_vars["CONFIG_BROKER_UUID"] || '-'
+        %td
+          = "This should be the same as CONFIG_IIB_SMTP_BROKER_UUID"
+      %tr
+        %td
+          = "CONFIG_IIB_SMTP_BROKER_UUID"
+        %td
+          = @config_env_vars["CONFIG_IIB_SMTP_BROKER_UUID"] || '-'
+        %td
+          = "The broker on which SendEMail.app is deployed. Emails from SC are sent by SendEmail.app"
+      %tr
+        %td
+          = "FROM_EMAIL_ID"
+        %td
+          = @config_env_vars["FROM_EMAIL_ID"] || '-'
+        %td
+          = "The 'From' Email address, for emails sent by the application."
+      %tr
+        %td
+          = "SMTP_ADDRESS"
+        %td
+          = @config_env_vars["SMTP_ADDRESS"] || '-'
+        %td
+          = "The SMTP server used to send emails (only for whitelisted identities)"
+      %tr
+        %td
+          = "SMTP_USERNAME"
+        %td
+          = @config_env_vars["SMTP_USERNAME"] || '-'
+        %td
+          = "The SMTP Username"    
+      %tr
+        %td
+          = "SMTP_PASSWORD"
+        %td
+          = "*******"
+        %td
+          = "The SMTP password"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Encryption
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody          
+      %tr
+        %td
+          = "CONFIG_CERTIFICATE_PATH"
+        %td
+          = @config_env_vars["CONFIG_CERTIFICATE_PATH"] || '-'
+        %td
+          = "The path where the SSL certificate is generated and kept. This is used for data encryption for the password in the login page of the application." 
+      %tr
+        %td
+          = "CONSUMER_KEY"
+        %td
+          = "*******"
+        %td
+          = "First part of the key used to encrypt sensitive data"
+      %tr
+        %td
+          = "CONSUMER_SECRET"
+        %td
+          = "*******"
+        %td
+          = "Second part of the key used to encrypt sensitive data" 
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} File Upload
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody
+      %tr
+        %td
+          = "CONFIG_AUTO_FILE_UPLOAD_PATH"
+        %td
+          = @config_env_vars["CONFIG_AUTO_FILE_UPLOAD_PATH"] || '-'
+        %td
+          = "The path where files automatically uploaded to the ESB are placed. This path must be shared with the IIB machines where FileProcess applications are deployed."
+      %tr
+        %td
+          = "CONFIG_FILE_UPLOAD_PATH"
+        %td
+          = @config_env_vars["CONFIG_FILE_UPLOAD_PATH"] || '-'
+        %td
+          = "The path where files uploaded from the UI are stored, before they are approved. This path need not be shared with IIB."
+      %tr
+        %td
+          = "CONFIG_SCP_IIB_FILE_MGR"
+        %td
+          = @config_env_vars["CONFIG_SCP_IIB_FILE_MGR"] || '-'
+        %td
+          = "The hostname of the IIB machine, from where files are to be downloaded"
+      %tr
+        %td
+          = "CONFIG_UPLOAD_PATH"
+        %td
+          = @config_env_vars["CONFIG_UPLOAD_PATH"] || '-'
+        %td
+          = "The path where the documents uploaded at the time whitelisting are stored. Whitelisting is used by InwardRemittance. This path need not be shared with IIB."
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} IAM
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody                                      
+      %tr
+        %td
+          = "IAM_LDAP_CONFIG_FILE_PATH"
+        %td
+          = @config_env_vars["IAM_LDAP_CONFIG_FILE_PATH"] || '-'
+        %td
+          = "The file that has the details for the LDAP that stores customer credentials. IAM is the module that manages customer credentials for API Banking."                                      
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Install 
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody
+      %tr
+        %td
+          = "APP_GROUP"
+        %td
+          = @config_env_vars["APP_GROUP"] || '-'
+        %td
+          = "The name of the application, to be used with RHEL commands"
+      %tr
+        %td
+          = "APP_HOME"
+        %td
+          = @config_env_vars["APP_HOME"] || '-'
+        %td
+          = "The path where the application is installed"
+      %tr
+        %td
+          = "APP_NAME"
+        %td
+          = @config_env_vars["APP_NAME"] || '-'
+        %td
+          = "The name of the application, to be used with RHEL commands"
+      %tr
+        %td
+          = "APP_RUNNER_CLI"
+        %td
+          = @config_env_vars["APP_RUNNER_CLI"] || '-'
+        %td
+          = "The RHEL commmand that is used to start/stop the application"
+      %tr
+        %td
+          = "APP_RUNNER_TYPE"
+        %td
+          = @config_env_vars["APP_RUNNER_TYPE"] || '-'
+        %td
+          = "The RHEL commmand that is used to start/stop the application"
+      %tr
+        %td
+          = "APP_SAFE_NAME"
+        %td
+          = @config_env_vars["APP_SAFE_NAME"] || '-'
+        %td
+          = "The name of the application, to be used with RHEL commands"
+      %tr
+        %td
+          = "APP_USER"
+        %td
+          = @config_env_vars["APP_USER"] || '-'
+        %td
+          = "The os username that runs the application"
+      %tr
+        %td
+          = "APP_WIZARDS"
+        %td
+          = @config_env_vars["APP_WIZARDS"] || '-'
+        %td
+          = "-"
+      %tr
+        %td
+          = "CONFIG_ENVIRONMENT"
+        %td
+          = @config_env_vars["CONFIG_ENVIRONMENT"] || '-'
+        %td
+          = "This should always be 'production'"
+      %tr
+        %td
+          = "CONFIG_LOGO_PATH"
+        %td
+          = @config_env_vars["CONFIG_LOGO_PATH"] || '-'
+        %td
+          = "The full path for the LOGO that is used in the application (top left corner)"
+      %tr
+        %td
+          = "GEM_PATH"
+        %td
+          = @config_env_vars["GEM_PATH"] || '-'
+        %td
+          = "The path where the gems used by the application are installed"
+      %tr
+        %td
+          = "HOME"
+        %td
+          = @config_env_vars["HOME"] || '-'
+        %td
+          = "The path where the application is installed"
+      %tr
+        %td
+          = "LANG"
+        %td
+          = @config_env_vars["LANG"] || '-'
+        %td
+          = "The language used by the application"
+      %tr
+        %td
+          = "LD_LIBRARY_PATH"
+        %td
+          = @config_env_vars["LD_LIBRARY_PATH"] || '-'
+        %td
+          = "The path where the Oracle Instant Client is installed"
+      %tr
+        %td
+          = "NLS_LANG"
+        %td
+          = @config_env_vars["NLS_LANG"] || '-'
+        %td
+          = "The language used by the application"
+      %tr
+        %td
+          = "PATH"
+        %td
+          = @config_env_vars["PATH"] || '-'
+        %td
+          = "The path in use by the application"
+      %tr
+        %td
+          = "PORT"
+        %td
+          = @config_env_vars["PORT"] || '-'
+        %td
+          = "The port at which the application is listening. This port will be configured in the IHS/NGINX"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Monitoring
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody          
+      %tr
+        %td
+          = "NEW_RELIC_LICENSE_KEY"
+        %td
+          = "*******"
+        %td
+          = "The license key for NewRelic. NewRelic is a industry standard hosted monitoring service for RoR applications"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Open SSL
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody          
+      %tr
+        %td
+          = "SSL_CERT_FILE"
+        %td
+          = @config_env_vars["SSL_CERT_FILE"] || '-'
+        %td
+          = "The path where OpenSSL certificates are installed"
+%table.table{style: 'table-layout:fixed;'}
+  %thead
+    %caption{:style => 'font-size:17px;font-weight:bold;'} Rails
+    %th
+      Name
+    %th
+      Value
+    %th
+      Purpose
+    %tbody          
+      %tr
+        %td
+          = "RACK_ENV"
+        %td
+          = @config_env_vars["RACK_ENV"] || '-'
+        %td
+          = "This should always show 'production'"
+      %tr
+        %td
+          = "RAILS_SERVE_STATIC_FILES"
+        %td
+          = @config_env_vars["RAILS_SERVE_STATIC_FILES"] || '-'
+        %td
+          = "This should always show 'enabled'"
+      %tr
+        %td
+          = "ROOT_PATH"
+        %td
+          = @config_env_vars["ROOT_PATH"] || '-'
+        %td
+          = "This should always show '/'"
+      %tr
+        %td
+          = "SECRET_KEY_BASE"
+        %td
+          = "*******"
+        %td
+          = "This should always be set, there are RoR commands to reset the value safely"
+      %tr
+        %td
+          = "SESSION_EXPIRY_IN_MINS"
+        %td
+          = @config_env_vars["SESSION_EXPIRY_IN_MINS"] || '-'
+        %td
+          = "The inactive session timeout interval in minutes. This should always be specified."
+

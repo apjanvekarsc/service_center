@@ -1,0 +1,79 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8;  height:630px;'}
+    #form-details
+      %h3 Su Incoming Record
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px;'}
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+        %tr
+          %td.label Version
+          %td.value
+            = link_to "#{audit_count(@su_record.incoming_file_record)}", :controller => :su_incoming_records, :action => :audit_logs, :version_id => audit_count(@su_record.incoming_file_record), :id => @su_record.incoming_file_record_id
+        %tr
+          %td.label Record Text
+          %td.value
+            - if @su_record.incoming_file_record.record_txt.nil?
+              .span{:class =>"has-tooltip", "data-toggle" => 'tooltip',"title" => "No Record Text Available for this record", "data-placement" => 'bottom', "data-html" => true}
+                Show Record Text
+            - else
+              = link_to "Show Record Text", "#", :class => 'show_record_text', :href => "#recordText", data: { record_txt: @su_record.incoming_file_record.record_txt} 
+
+        %tr
+          %td.label File Name 
+          %td.value
+            = @su_record.file_name
+        %tr
+          %td.label Corporate Account No
+          %td.value
+            = @su_record.corp_account_no
+        %tr
+          %td.label Corporate Reference No
+          %td.value
+            = @su_record.corp_ref_no
+        %tr
+          %td.label Corporate Statement
+          %td.value
+            = @su_record.corp_stmt_txt
+        %tr
+          %td.label Employee Account No
+          %td.value
+            = @su_record.emp_account_no
+        %tr
+          %td.label Employee Name
+          %td.value
+            = @su_record.emp_name
+        %tr
+          %td.label Employee Reference No
+          %td.value
+            = @su_record.emp_ref_no
+        %tr
+          %td.label Debit Reference No
+          %td.value
+            = @su_record.debit_ref_no
+        %tr
+          %td.label Salary Amount 
+          %td.value
+            = @su_record.salary_amount
+        %tr
+          %td.label Employee Statement
+          %td.value
+            = @su_record.emp_stmt_txt
+        %tr
+          %td.label Account Name
+          %td.value
+            = @su_record.account_name
+        %tr
+          %td.label Distance In Name
+          %td.value
+            = @su_record.distance_in_name
+#recordText.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Record Text
+    #error_message{:style => 'color:red'}
+  .modal-body{:style => "max-height:450px;"}
+    .demo-area
+      %button#d_clip_button1.my_clip_button1{"data-clipboard-target" => "record_txt"}
+        %b Copy To Clipboard...
+    %pre#record_txt{:style => 'word-wrap: break-word'}
+      .reply{:style => 'word-wrap: break-word'}

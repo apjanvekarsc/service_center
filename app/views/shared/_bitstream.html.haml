@@ -1,0 +1,15 @@
+%a{href: '#', "data-target": "##{id}", "data-toggle": "modal"} #{ref_no}
+.modal.hide.fade{role: "dialog", id: "#{id}"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"data-dismiss": "modal", type: "button"} ×
+				%h4.modal-title #{title}
+			.modal-body.bitstream-body
+				.demo-area
+					%button.my_clip_button{"data-clipboard-target" => "#{xml}", id: "#{button}"}
+						%b Copy To Clipboard...
+					%pre{:style => 'word-wrap: break-word', id: "#{xml}"}
+						#{beautify(bitstream)}
+			.modal-footer
+				%button.btn.btn-default{"data-dismiss": "modal", type: "button"} Close

@@ -1,0 +1,78 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8; margin: 1%;'}
+    #form-details
+      %h3 IAM Audit Logs
+      %br
+        %table.table.no-border{:style=>"table-layout: fixed; width: 100%"}
+          %tr
+            %td.label Organisation UUID:
+            %td.value
+              - if (iam_organisation = @iam_audit_log.iam_organisation).present?
+                = link_to @iam_audit_log.org_uuid, iam_organisation_path(iam_organisation)
+              - else
+                = @iam_audit_log.org_uuid
+          %tr
+            %td.label Certifacte DN:
+            %td.value
+              = @iam_audit_log.cert_dn
+          %tr
+            %td.label Source Ip:
+            %td.value
+              = @iam_audit_log.source_ip
+          %tr
+            %td.label Request Timestamp:
+            %td.value
+              = @iam_audit_log.req_timestamp.try(:strftime, "%d/%m/%Y %I:%M%p")
+          %tr
+            %td.label Request Bitstream:
+            %td.value
+              = show_xml('Show Request','request-link', @iam_audit_log.req_bitstream)
+          %tr
+            %td.label Reply Timestamp:
+            %td.value
+              = @iam_audit_log.rep_timestamp.try(:strftime, "%d/%m/%Y %I:%M%p")
+          %tr
+            %td.label Reply Bitstream:
+            %td.value
+              = show_xml('Show Reply','reply-link', @iam_audit_log.rep_bitstream)
+          %tr
+            %td.label Fault Code:
+            %td.value
+              = link_to "Fault Text", "#", :class => 'fault-link', :href => "javascript:void()", :style => "font-weight:100"
+#faultText.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Fault Text
+    #error_message{:style => 'color:red'}
+  .modal-body{:style => "max-height:450px;"}
+    .demo-area
+    %pre#fault_text{:style => 'word-wrap: break-word'}
+    %table.table.no-border
+      %tr
+        %td.label Fault Code:
+        %td= @iam_audit_log.fault_code
+      %tr
+        %td.label Fault Reason:
+        %td= @iam_audit_log.fault_reason
+#replyText.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Reply
+    #error_message{:style => 'color:red'}
+  .modal-body{:style => "max-height:450px;"}
+    .demo-area
+      %button#d_clip_button2.my_clip_button2{"data-clipboard-target" => "reply_xml"}
+        %b Copy To Clipboard...
+    %pre#reply_xml{:style => 'word-wrap: break-word'}
+      .reply{:style => 'word-wrap: break-word'}
+#requestText.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Request
+    #error_message{:style => 'color:red'}
+  .modal-body{:style => "max-height:450px;"}
+    .demo-area
+      %button#d_clip_button1.my_clip_button1{"data-clipboard-target" => "req_xml"}
+        %b Copy To Clipboard...
+    %pre#req_xml{:style => 'word-wrap: break-word'}
+      .request{:style => 'word-wrap: break-word'}

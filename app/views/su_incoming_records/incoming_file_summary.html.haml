@@ -1,0 +1,39 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8;  height:630px;'}
+    #form-details
+      %h3 Instant Credit Incoming File
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px;'}
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+        %tr
+          %td.label Debit Amount
+          %td.value
+            = @summary.try(:debit_amount)
+        %tr
+          %td.label Debit Reference No
+          %td.value
+            = @summary.try(:debit_reference_no)
+        %tr
+          %td.label Debit Status
+          %td.value
+            = @summary.try(:debit_status)
+        %tr
+          %td.label Debited At
+          %td.value
+            = @summary.try(:debited_at).try(:strftime, "%d/%m/%Y %I:%M%p") rescue ""
+        %tr
+          %td.label Reversal Amount
+          %td.value
+            = @summary.try(:reversal_amount)
+        %tr
+          %td.label Reversal Reference No
+          %td.value
+            = @summary.try(:reversal_reference_no)
+        %tr
+          %td.label Reversal Status
+          %td.value
+            = @summary.try(:reversal_status)
+        %tr
+          %td.label Reversed At
+          %td.value
+            = @summary.try(:reversed_at).try(:strftime, "%d/%m/%Y %I:%M%p") rescue ""

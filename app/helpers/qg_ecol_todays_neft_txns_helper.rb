@@ -1,0 +1,2 @@
+module QgEcolTodaysNeftTxnsHelper
+end

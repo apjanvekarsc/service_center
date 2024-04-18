@@ -1,0 +1,31 @@
+%h2.collapsible
+  Advanced Search
+  %span.caret
+.collapsible-content
+  = form_tag '', :method => 'get', :class => 'form-horizontal', :autocomplete=>"off" do
+    = hidden_field_tag :approval_status, params[:approval_status]
+  
+    .control-group
+      = label_tag "Username", "Username", :class => 'control-label'
+      = text_field_tag :username, params[:username],placeholder: 'Multisearch Search Enabled'
+    .control-group
+      = label_tag "Email", "Email", :class => 'control-label'
+      = text_field_tag :email, params[:email],placeholder: 'Multisearch Search Enabled'
+    .control-group
+      = label_tag "Secondary Email", "Secondary Email", :class => 'control-label'
+      = text_field_tag :secondary_email, params[:secondary_email],placeholder: 'Multisearch Search Enabled'
+    .control-group
+      = label_tag "Mobile Number", "Mobile Number", :class => 'control-label'
+      = text_field_tag :mobile_no, params[:mobile_no],placeholder: 'Multisearch Search Enabled'
+    .control-group
+      = label_tag "Secondary Mobile Number", "Secondary Mobile Number", :class => 'control-label'
+      = text_field_tag :secondary_mobile_no, params[:secondary_mobile_no],placeholder: 'Multisearch Search Enabled'
+    .form-actions
+      = button_tag "Search", :class => 'btn btn-primary'
+      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'iam_cust_user_reset'
+    = hidden_field_tag :advanced_search, :true
+
+:javascript
+  $("#iam_cust_user_reset").click(function() {
+    $(this).closest('form').find("input,select").val("");
+  });

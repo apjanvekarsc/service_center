@@ -1,0 +1,30 @@
+
+%br
+%br
+%h1 Listing IAM Audit Logs
+= render :partial => 'advanced_search'
+%br
+= "Total Count: #{@records.count}"
+= will_paginate @records, :page_links => true
+%br
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Organisaton UUID
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Cert dn
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Source Ip
+			
+  .tbody
+    - @records.each do |log|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', log
+        %td{:style=>'text-align:left;'}
+          = log.org_uuid
+        %td{:style=>'text-align:left;'}
+          = log.cert_dn
+        %td{:style=>'text-align:left;'}
+          = log.source_ip

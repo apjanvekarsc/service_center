@@ -1,0 +1,1 @@
+SeedFu.fixture_paths.concat Bundler.load.specs.select { |g| g.name.start_with?('qg-') }.map { |x| "#{x.full_gem_path}/db/fixtures" }

@@ -1,0 +1,31 @@
+#<% @public_key = encrypted_field_public_key if @public_key.nil? %>
+<div id="login">
+  <h2><%= title "#{render_or_call_method_or_proc_on(self, active_admin_application.site_title)} #{t('active_admin.devise.login.title')}" %></h2>
+
+  <% scope = Devise::Mapping.find_scope!(resource_name) %>
+  <fieldset class='inputs-login'>
+    <ol class='login-ol'>
+      <li class='fieldset-li'>
+        <%= hidden_field_tag(:public_key, @public_key) %>
+        <%= label_tag :username, "Username", :class =>'label-li' %>
+        <%= text_field_tag :username, nil, id: 'username-show', autocomplete: 'off', :class =>'input-li' %>
+      </li>
+      <li class='fieldset-li'>
+        <%= label_tag :password , 'Password*', :class =>'label-li'%>
+        <%= password_field_tag :password, nil, id: 'password-show', autocomplete: 'off', :class =>'input-li',:data=> { encrypt: true } %>
+      </li>
+    </ol>
+  </fieldset>
+  <%= active_admin_form_for(resource, :as => resource_name, :url => send(:"#{scope}_session_path"), :html => { :id => "session_new", :autocomplete => "off"}) do |f|
+    f.inputs do
+      resource.class.authentication_keys.each { |key| f.hidden_field key, autofocus: true, autocomplete: "off"}
+      f.hidden_field :password, autocomplete: 'off', data: { encrypt: true }
+    end
+    f.actions do
+      f.action :submit, :label => t('active_admin.devise.login.submit'), :button_html => { :value => t('active_admin.devise.login.submit') }
+    end
+  end
+  %>
+
+  <%= render :partial => "active_admin/devise/shared/links" %>
+</div>

@@ -1,0 +1,20 @@
+%a.brand{:href => "/", :style => "background: url(#{ENV['CONFIG_LOGO_PATH']})no-repeat center center"}
+  Service Center
+- unless current_user.nil?
+  %span.caption
+    .brand_name
+      &nbsp;Service Center&nbsp;
+  %ul.nav{:style => "width: 25%;"}
+    %li{:style => "width: 33%;"}
+      %a{:href => "/"}
+        %i.icon-list
+        Dashboard
+    %li#user.dropdown{:style => "width: 65%; padding-left: 1%;"}
+      = link_to content_tag(:span, content_tag(:i, '', :class=>"icon icon-white icon-user") + "#{current_user.name}"),"#", :style=>"display: block; padding: 0 2px 0 2px; white-space: nowrap; width: 100%; overflow: hidden; text-overflow: ellipsis;"
+      %ul.dropdown-menu
+        %li
+          = (link_to "Sign out", main_app.destroy_user_session_path, :method => :delete)
+- else
+  %span.caption
+    .brand_name
+      &nbsp;&nbsp; Service Center &nbsp

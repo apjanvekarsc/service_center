@@ -1,0 +1,2 @@
+module QgEcolTodaysImpsTxnsHelper
+end

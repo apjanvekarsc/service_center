@@ -1,0 +1,32 @@
+
+<h1>Listing LDAP Users</h1>
+
+<br/>
+<br/>
+<table class="table table-bordered table-striped table-hover">
+  <div class="thead">
+    <th style="text-align:left; background-color: lightblue;">
+      Account Name
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Username
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Crerated TimeStamp
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Last Login TimeStamp
+    </th>
+  </div>
+  <div class="tbody">
+    <% @users_list.each do |record| %>
+      <tr>
+        <% record.each do |data| %>
+          <td style="text-align:left;">
+            <%= data.join('') %>
+          </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </div>
+</table>

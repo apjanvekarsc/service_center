@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ifsc: MyString
+  name: MyString
+  imps_enabled: false
+
+two:
+  ifsc: MyString
+  name: MyString
+  imps_enabled: false

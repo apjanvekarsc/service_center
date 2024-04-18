@@ -1,0 +1,45 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8;'}
+    #form-details
+      %h3 IAM Audit Rule Details 
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @iam_audit_rule
+        %a.btn{:href => "#{!(can) ? '#' : '/iam_audit_rules/' + @iam_audit_rule.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%"}
+        - if !@iam_audit_rule.nil?
+          %tr
+            %td.label Version
+            %td.value
+              = link_to "#{audit_count(@iam_audit_rule)}", :controller => :iam_audit_rules, :action => :audit_logs, :version_id => audit_count(@iam_audit_rule), :id => @iam_audit_rule.id
+          %tr
+            %td.label Log Bad Organisation UUID
+            %td.value
+              = @iam_audit_rule.log_bad_org_uuid
+            %td
+          %tr
+            %td.label IAM Organisation
+            %td.value
+              - if @iam_audit_rule.iam_organisation.present? 
+                = link_to @iam_audit_rule.iam_organisation.name, @iam_audit_rule.iam_organisation
+            %td
+          %tr
+            %td.label Last Enabled At
+            %td.value
+              = @iam_audit_rule.enabled_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td
+          %tr
+            %td.label Enabled For (in mins)
+            %td.value
+              = @iam_audit_rule.interval_in_mins
+            %td
+          %tr
+            %td.label Updated By
+            %td.value
+              = @iam_audit_rule.updated_user.try(:username)
+            %td
+          %tr
+            %td.label Updated At
+            %td.value
+              = @iam_audit_rule.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td

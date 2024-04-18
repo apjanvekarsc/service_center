@@ -1,0 +1,11 @@
+= semantic_form_for [:admin, @user_role] do |f|
+  = f.inputs "User Role Details" do
+    = f.input :user, :input_html => { :style => 'display:inline-block; width: 250px;' }
+    = f.input :role, :input_html => { :style => 'display:inline-block; width: 250px;' }
+    = f.hidden_field :lock_version
+    = f.hidden_field :approved_id
+    = f.hidden_field :approved_version
+  = f.actions do
+    = f.action :submit
+    %li.cancel
+      = link_to "Cancel", "/admin/user_roles"

@@ -1,0 +1,14 @@
+build_dependencies:
+  - freetds-devel
+  - libaio
+dependencies:
+  - libaio
+targets:
+  centos-8:
+env:
+  - "LD_LIBRARY_PATH=/tmp/oracle/instantclient_11_1:$LD_LIBRARY_PATH"
+  - SKIP_INIT=yes
+before_precompile: packaging/before_precompile
+after_install: packaging/post_install
+after:
+  - rm -rf vendor/bundle/ruby/2.2.0/gems/rb-fsevent-0.9.5/spec

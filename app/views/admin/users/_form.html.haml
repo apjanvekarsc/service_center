@@ -1,0 +1,21 @@
+= semantic_form_for [:admin, @user] do |f|
+  = f.inputs "User Details" do
+    = f.input :username , :label=>"User Id", :input_html => { :style => 'display:inline-block; width: 250px;' }
+    - unless [:authenticate_devise_with_ldap].present?
+      - @public_key = encrypted_field_public_key if @public_key.nil?
+      = hidden_field_tag(:public_key, @public_key)
+      = f.input :first_name, :input_html => { :style => 'display:inline-block; width: 250px;' }
+      = f.input :last_name, :input_html => { :style => 'display:inline-block; width: 250px;' }
+      = f.input :email, :input_html => { :style => 'display:inline-block; width: 250px;' }
+      = f.input :mobile_no, :input_html => { :style => 'display:inline-block; width: 250px;' }
+      = f.input :password, :input_html => { data: { encrypt: true }, :style => 'display:inline-block; width: 250px;' }
+      = f.input :password_confirmation, :input_html => { data: { encrypt: true }, :style => 'display:inline-block; width: 250px;' }
+    - else
+      = f.input :first_name, :as=>:hidden
+    %li
+      = f.check_box :inactive
+      = f.label "Inactive", :for => 'inactive_generic_app'
+  = f.actions do
+    = f.action :submit
+    %li.cancel
+      = link_to "Cancel", "/admin/users"

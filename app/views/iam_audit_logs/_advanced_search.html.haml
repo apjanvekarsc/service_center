@@ -1,0 +1,22 @@
+%h2.collapsible
+  Advanced Search
+  %span.caret
+.collapsible-content
+  = form_tag iam_audit_logs_path, :method => :put, :class => 'form-horizontal', :autocomplete=>"off", id: 'advanced_search' do
+    .control-group
+      = label_tag "Organisation UUID", "Organisation UUID", :class => 'control-label'
+      = text_field_tag :org_uuid, params[:org_uuid],placeholder: 'Multisearch Search Enabled'
+    .control-group
+      = label_tag "Certificate DN", "Certificate DN", :class => 'control-label'
+      = text_field_tag :cert_dn, params[:cert_dn],placeholder: 'Multisearch Search Enabled'
+    .control-group
+      = label_tag "Source Ip", "Source Ip", :class => 'control-label'
+      = text_field_tag :source_ip, params[:source_ip],placeholder: 'Multisearch Search Enabled'
+      = hidden_field_tag :page, params[:page] || 1
+    .form-actions
+      = submit_tag "Search", :name => nil, :class => 'btn btn-primary', :id => "adv_search_button",onclick: "$('#page').val(1)"
+      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'adv_search_reset_button'
+
+- if @searcher.errors.present?
+  :javascript
+    $('.collapsible-content').show(); 
