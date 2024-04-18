@@ -6,6 +6,20 @@ GIT
       countries (~> 5.0)
 
 GIT
+  remote: https://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:x-oauth-basic@github.com/apjanvekarsc/encrypted_field.git
+  revision: bc97470914a1d24fd0ec71b41f32d6fe7a919cd1
+  specs:
+    encrypted_field (0.1.7)
+
+GIT
+  remote: https://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:x-oauth-basic@github.com/apjanvekarsc/qg-inw.git
+  revision: bd5a76d86fd290f06189dded0288c3613a375276
+  branch: main
+  specs:
+    qg-inw (0.0.1)
+      rails (= 7.0.4)
+
+GIT
   remote: https://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:x-oauth-basic@github.com/skillmine1234/approval2.git
   revision: 38c2ae6e75f3cbb782e8254f4af5e73d0856e5a3
   specs:
@@ -29,19 +43,6 @@ GIT
   specs:
     qg-datapurge (0.7.0)
       rails (~> 7.0.4)
-
-GIT
-  remote: https://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:x-oauth-basic@github.com/skillmine1234/qg-inw.git
-  revision: 355d3d0a3a685ea35510fbcc8a3ccff7511be7a0
-  branch: main
-  specs:
-    qg-inw (0.0.1)
-      rails (= 7.0.4)
-
-PATH
-  remote: /home/rahul/rahul/project/encrypted_field
-  specs:
-    encrypted_field (0.1.7)
 
 GEM
   remote: https://rubygems.org/

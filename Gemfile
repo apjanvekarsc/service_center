@@ -62,7 +62,7 @@ gem 'simple_enum-multiple'
 gem 'draper'
 gem 'font-awesome-rails'
 gem 'i18n', '~> 1.13'
-gem 'encrypted_field',:path=>'/home/rahul/rahul/project/encrypted_field'#:git=>"https://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:x-oauth-basic@github.com/skillmine1234/encrypted_field.git"
+gem 'encrypted_field',:git=>"https://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:x-oauth-basic@github.com/apjanvekarsc/encrypted_field.git"
 #gem 'nokogiri'
 #gem 'bcrypt', '~> 3.1', '>= 3.1.18'
 gem 'ffi', '~> 1.15', '>= 1.15.5'
@@ -121,7 +121,7 @@ gem 'will_paginate', '~> 4.0'
 
 #gem 'activerecord-oracle_enhanced-adapter'
 
-gem 'qg-inw','0.0.1',:git =>"https://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:x-oauth-basic@github.com/skillmine1234/qg-inw.git", branch: 'main'
+gem 'qg-inw','0.0.1',:git =>"https://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:x-oauth-basic@github.com/apjanvekarsc/qg-inw.git", branch: 'main'
 #gem 'qg-ft',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-ft.git", branch: 'wip'
 #gem 'qg-ecol',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-ecol.git", branch: 'main'
 #gem 'qg-sm',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-sm.git", branch: 'main' #:path=>"/home/rahul/project/qg-sm"
